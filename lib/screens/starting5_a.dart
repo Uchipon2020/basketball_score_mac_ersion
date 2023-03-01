@@ -33,19 +33,21 @@ class _StartingAState extends State<StartingA> {
         backgroundColor: Colors.indigo,
       ),
       body: Padding(
-        padding: const EdgeInsets.only(left: 50,top: 8.0,right: 20),
+        padding: const EdgeInsets.all(8.0),
         child: ListView.builder(
           itemCount: 13,
           itemBuilder: (BuildContext context, int index)
           => SwitchListTile(
+            controlAffinity: ListTileControlAffinity.leading,
             activeColor: Colors.indigo,
-            dense: denseChecker,
+            //dense: denseChecker,
             title: Text(
               switchList[index].toString(),
               style: const TextStyle(
                 fontSize: 20.0,
               ),
             ),
+            contentPadding:const EdgeInsets.all(1.0),
             secondary: Text(nameList[index]),
             value: _isChecked[index],
             onChanged: (bool? vale) {
