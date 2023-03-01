@@ -1,5 +1,6 @@
-import 'package:basketball_score_mac_ersion/screens/team_a_member_screen.dart';
-import 'package:basketball_score_mac_ersion/screens/team_b_member_screen.dart';
+import 'package:basketball_score_mac_ersion/screens/member_controll/team_a_member_screen.dart';
+import 'package:basketball_score_mac_ersion/screens/member_controll/team_b_member_screen.dart';
+import 'package:basketball_score_mac_ersion/screens/starting5_a.dart';
 import 'package:flutter/material.dart';
 
 class MainScreen extends StatefulWidget {
@@ -21,10 +22,10 @@ class _MainScreenState extends State<MainScreen> {
     setState(() {
       teamA = [];
       teamB = [];
-      for(int i = 0 ; i <= 14 ; i++){
-        int ii = i + 4 ;
-        teamA.add({'number': ii ,'name': '' });
-        teamB.add({'number': ii ,'name': '' });
+      for (int i = 0; i <= 14; i++) {
+        int ii = i + 4;
+        teamA.add({'number': ii, 'name': ''});
+        teamB.add({'number': ii, 'name': ''});
       }
     });
   }
@@ -35,7 +36,9 @@ class _MainScreenState extends State<MainScreen> {
     teamBNameController.text = teamBName;
     debugPrint('$teamBName: $teamAName: $teamA :$teamB');
 
-    if (teamA.isEmpty){_resetScreen();}
+    if (teamA.isEmpty) {
+      _resetScreen();
+    }
     return Scaffold(
       appBar: AppBar(title: const Text('メインページ')),
       body: Container(
@@ -64,12 +67,15 @@ class _MainScreenState extends State<MainScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 ElevatedButton(
-
                   onPressed: () async {
-                    var result = await Navigator.of(context).push<List<dynamic>>(
+                    var result =
+                        await Navigator.of(context).push<List<dynamic>>(
                       PageRouteBuilder(
-                        pageBuilder: (context, animation, secondaryAnimation)
-                        => TeamAMembers(membersA: teamA ,team: teamAName,),
+                        pageBuilder: (context, animation, secondaryAnimation) =>
+                            TeamAMembers(
+                          membersA: teamA,
+                          team: teamAName,
+                        ),
                         transitionsBuilder:
                             (context, animation, secondaryAnimation, child) {
                           const Offset begin = Offset(-1.0, 0.0); // 右から左
@@ -87,20 +93,39 @@ class _MainScreenState extends State<MainScreen> {
                         },
                       ),
                     );
-                    teamA = result as List<Map<String,dynamic>>;
+                    teamA = result as List<Map<dynamic, dynamic>>;
                   },
                   child: const Text('TeamA Member'),
                 ),
-                ElevatedButton(onPressed: () {}, child: const Text('Start')),
-                ElevatedButton(
-                    onPressed: () async {
-                      var result = await Navigator.push<List<dynamic>>(context,
-                        MaterialPageRoute(
-                          builder: (context) => TeamBMembers(membersB: teamB,team: teamBName,),
 
+                //-----------MAIN----------
+                ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => StartingA(
+                            teamA: teamA,
+                            teamB: teamB,
+                          ),
                         ),
                       );
-                      teamB = result as List<Map<String,dynamic>>;
+                    },
+                    child: const Text('Start')),
+
+                //--------
+                ElevatedButton(
+                    onPressed: () async {
+                      var result = await Navigator.push<List<dynamic>>(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => TeamBMembers(
+                            membersB: teamB,
+                            team: teamBName,
+                          ),
+                        ),
+                      );
+                      teamB = result as List<Map<String, dynamic>>;
                     },
                     child: const Text('TeamB Member')),
               ],
