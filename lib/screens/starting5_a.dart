@@ -38,9 +38,9 @@ class _StartingAState extends State<StartingA> {
           itemCount: 13,
           itemBuilder: (BuildContext context, int index)
           => SwitchListTile(
+            dense: true,
             controlAffinity: ListTileControlAffinity.leading,
             activeColor: Colors.indigo,
-            //dense: denseChecker,
             title: Text(
               switchList[index].toString(),
               style: const TextStyle(
@@ -67,11 +67,13 @@ class _StartingAState extends State<StartingA> {
                       };
               });
             },
+            nextScreen(),
           ),
         ),
       ),
     );
   }
+  void nextScreen(){}
 
   void DenseCheck(int count) {
     if (count > 4) {
