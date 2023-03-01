@@ -66,8 +66,7 @@ class _StartingAState extends State<StartingA> {
                         _isChecked[index] = false,
                       };
               });
-            },
-            nextScreen(),
+            }
           ),
         ),
       ),
