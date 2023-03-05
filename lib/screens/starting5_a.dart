@@ -1,3 +1,5 @@
+import 'package:basketball_score_mac_ersion/screens/main_screen.dart';
+import 'package:basketball_score_mac_ersion/screens/starting5_b.dart';
 import 'package:flutter/material.dart';
 
 class StartingA extends StatefulWidget {
@@ -26,8 +28,8 @@ class _StartingAState extends State<StartingA> {
     }
     return Scaffold(
       appBar: AppBar(
-        title: const Text('濃チーム　スターティング',
-        style: TextStyle(
+        title: Text(MainScreen.teamAName,
+        style: const TextStyle(
           color: Colors.white
         ),),
         backgroundColor: Colors.indigo,
@@ -38,46 +40,56 @@ class _StartingAState extends State<StartingA> {
           itemCount: 13,
           itemBuilder: (BuildContext context, int index)
           => SwitchListTile(
-            dense: true,
-            controlAffinity: ListTileControlAffinity.leading,
-            activeColor: Colors.indigo,
-            title: Text(
-              switchList[index].toString(),
-              style: const TextStyle(
-                fontSize: 20.0,
+              dense: true,
+              controlAffinity: ListTileControlAffinity.leading,
+              activeColor: Colors.indigo,
+              title: Text(
+                switchList[index].toString(),
+                style: const TextStyle(
+                  fontSize: 20.0,
+                ),
               ),
+              contentPadding:const EdgeInsets.all(1.0),
+              secondary: Text(nameList[index]),
+              value: _isChecked[index],
+              onChanged: (bool? vale) {
+                debugPrint(index.toString());
+                try{
+                setState(() {
+                  _isChecked[index] == false
+                      ? {
+                          regular[denseCheckCounter] = index,
+                          denseCheckCounter++,
+                          DenseCheck(denseCheckCounter),
+                          _isChecked[index] = true,
+                        }
+                      : {
+                          denseCheckCounter--,
+                          DenseCheck(denseCheckCounter),
+                          _isChecked[index] = false,
+                        };
+                });} catch(e){
+                  nextScreen();
+                }
+              }
             ),
-            contentPadding:const EdgeInsets.all(1.0),
-            secondary: Text(nameList[index]),
-            value: _isChecked[index],
-            onChanged: (bool? vale) {
-              debugPrint(index.toString());
-              setState(() {
-                _isChecked[index] == false
-                    ? {
-                        regular[denseCheckCounter] = widget.teamA![index]['number'],
-                        denseCheckCounter++,
-                        DenseCheck(denseCheckCounter),
-                        _isChecked[index] = true,
-                      }
-                    : {
-                        denseCheckCounter--,
-                        DenseCheck(denseCheckCounter),
-                        _isChecked[index] = false,
-                      };
-              });
-            }
           ),
         ),
-      ),
+
     );
   }
-  void nextScreen(){}
 
   void DenseCheck(int count) {
     if (count > 4) {
       denseChecker = false;
     }
     else {denseChecker = true;}
+  }
+
+  void nextScreen() {
+    Navigator.push(
+        context,MaterialPageRoute(
+        builder: (context)
+        => StartingB(teamA: widget.teamA,teamB: widget.teamB,regularA: regular,)));
   }
 }

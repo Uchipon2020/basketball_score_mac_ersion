@@ -5,13 +5,13 @@ import 'package:flutter/material.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
+  static String teamAName = 'チーム濃';
+  static String teamBName = 'チーム淡';
   @override
   State<MainScreen> createState() => _MainScreenState();
 }
 
 class _MainScreenState extends State<MainScreen> {
-  String teamAName = 'チーム濃';
-  String teamBName = 'チーム淡';
   List<Map> teamA = [];
   List<Map> teamB = [];
   final teamANameController = TextEditingController();
@@ -32,9 +32,9 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    teamANameController.text = teamAName;
-    teamBNameController.text = teamBName;
-    debugPrint('$teamBName: $teamAName: $teamA :$teamB');
+    teamANameController.text = MainScreen.teamAName;
+    teamBNameController.text = MainScreen.teamBName;
+    debugPrint('$MainScreen.teamBName: $MainScreen.teamAName: $teamA :$teamB');
 
     if (teamA.isEmpty) {
       _resetScreen();
@@ -50,7 +50,7 @@ class _MainScreenState extends State<MainScreen> {
               controller: teamANameController,
               onChanged: (value) {
                 setState(() {
-                  teamAName = teamANameController.text;
+                  MainScreen.teamAName = teamANameController.text;
                 });
               },
             ),
@@ -59,7 +59,7 @@ class _MainScreenState extends State<MainScreen> {
               controller: teamBNameController,
               onChanged: (value) {
                 setState(() {
-                  teamBName = teamBNameController.text;
+                  MainScreen.teamBName = teamBNameController.text;
                 });
               },
             ),
@@ -74,7 +74,7 @@ class _MainScreenState extends State<MainScreen> {
                         pageBuilder: (context, animation, secondaryAnimation) =>
                             TeamAMembers(
                           membersA: teamA,
-                          team: teamAName,
+                          team: MainScreen.teamAName,
                         ),
                         transitionsBuilder:
                             (context, animation, secondaryAnimation, child) {
@@ -121,7 +121,7 @@ class _MainScreenState extends State<MainScreen> {
                         MaterialPageRoute(
                           builder: (context) => TeamBMembers(
                             membersB: teamB,
-                            team: teamBName,
+                            team: MainScreen.teamBName,
                           ),
                         ),
                       );
