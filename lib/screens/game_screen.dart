@@ -175,7 +175,7 @@ class _GameScreenState extends State<GameScreen> {
               ),
             //２／３の上部グループ
             Expanded(
-              child: Container(
+              child: SizedBox(
                 width: double.infinity,
                 child: ListView.builder(
                     itemCount: activeGameLog.length,
