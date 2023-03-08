@@ -35,6 +35,7 @@ class _GameScreenState extends State<GameScreen> {
     }
   ];
   List<String> activeGameLogToString = [];
+
   @override
   Widget build(BuildContext context) {
     //アクティブログを文字列に変換して格納
@@ -180,13 +181,20 @@ class _GameScreenState extends State<GameScreen> {
               child: SizedBox(
                 width: double.infinity,
                 child: ListView.builder(
+                  //controller: listContloll,
+                  reverse: true,
+                    shrinkWrap: true,
                     itemCount: activeGameLogToString.length,
                     itemBuilder: (BuildContext context, int index) {
                       return Dismissible(
+                          onDismissed:
+                            (direction){
+                          setState((){activeGameLogToString.removeAt(index);});
+                        },
                         key: UniqueKey(),
                         child: Card(
                           child: ListTile(
-                            title: Text(activeGameLogToString[index].toString()),
+                            title: Text(activeGameLogToString[activeGameLogToString.length-index-1].toString()),
                           ),
                         ),
                       );
@@ -296,7 +304,8 @@ class _GameScreenState extends State<GameScreen> {
                           child: ElevatedButton(
                             onPressed: () {
                               setState(() {
-                                activeGameLogToString.add('Foulが押されたよ！！');
+                                //activeGameLogToString.add('Foulが押されたよ！！');
+                                activeGameLogToString.clear();
                               });
                             },
                             style: ElevatedButton.styleFrom(
