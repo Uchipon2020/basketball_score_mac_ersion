@@ -237,10 +237,14 @@ class _GameScreenState extends State<GameScreen> {
                         child: Padding(
                           padding: const EdgeInsets.all(3.0),
                           child: ElevatedButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              setState(() {
+                                activeGameLogToString.add('MemberChangeが押されたよ！！');
+                              });
+                            },
                             style: ElevatedButton.styleFrom(
                                 elevation: 3.0,
-                                backgroundColor: Colors.deepOrange,
+                                backgroundColor: Colors.blue,
                                 fixedSize: const Size(20, 60.0),
                                 side: const BorderSide(
                                   color: Colors.black,
@@ -264,13 +268,16 @@ class _GameScreenState extends State<GameScreen> {
                         child: Padding(
                           padding: const EdgeInsets.all(3.0),
                           child: ElevatedButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              setState(() {
+                                activeGameLogToString.add('Goalが押されたよ！！');
+                              });
+                            },
                             style: ElevatedButton.styleFrom(
                                 elevation: 3.0,
-                                backgroundColor: Colors.deepOrange,
+                                backgroundColor: Colors.yellow,
                                 fixedSize: const Size(20, 60.0),
                                 side: const BorderSide(
-                                  color: Colors.black,
                                   width: 3.0,
                                 )),
                             child: const Text(
@@ -287,13 +294,17 @@ class _GameScreenState extends State<GameScreen> {
                         child: Padding(
                           padding: const EdgeInsets.all(3.0),
                           child: ElevatedButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              setState(() {
+                                activeGameLogToString.add('Foulが押されたよ！！');
+                              });
+                            },
                             style: ElevatedButton.styleFrom(
                                 elevation: 3.0,
-                                backgroundColor: Colors.deepOrange,
+                                backgroundColor: Colors.red,
                                 fixedSize: const Size(20, 60.0),
                                 side: const BorderSide(
-                                  color: Colors.black,
+                                  color: Colors.greenAccent,
                                   width: 3.0,
                                 )),
                             child: const Text(
