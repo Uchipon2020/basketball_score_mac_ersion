@@ -43,6 +43,7 @@ class _GameScreenState extends State<GameScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('ゲーム記録中！！'),
+        automaticallyImplyLeading: false,
       ),
       body: SafeArea(
         //全体
