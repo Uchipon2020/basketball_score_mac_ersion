@@ -1,10 +1,10 @@
-import 'package:basketball_score_mac_ersion/screens/game_screen.dart';
+import 'package:basketball_score_mac_ersion/screens/main_screens/game_screen.dart';
 import 'package:basketball_score_mac_ersion/screens/main_screen.dart';
 import 'package:flutter/material.dart';
 
 class StartingB extends StatefulWidget {
-  List<Map<dynamic, dynamic>>? teamA;
-  List<Map<dynamic, dynamic>>? teamB;
+  List<Map<String, dynamic>>? teamA;
+  List<Map<String, dynamic>>? teamB;
   List<int>? regularA;
   StartingB(
       {Key? key,
@@ -91,7 +91,7 @@ class _StartingBState extends State<StartingB> {
   }
 
   void nextScreen() {
-    Navigator.push(
+    Navigator.pushReplacement(
         context,
         MaterialPageRoute(
             builder: (context) => GameScreen(

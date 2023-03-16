@@ -3,8 +3,8 @@ import 'package:basketball_score_mac_ersion/screens/starting5_b.dart';
 import 'package:flutter/material.dart';
 
 class StartingA extends StatefulWidget {
-  List<Map<dynamic, dynamic>>? teamA;
-  List<Map<dynamic, dynamic>>? teamB;
+  List<Map<String, dynamic>>? teamA;
+  List<Map<String, dynamic>>? teamB;
   StartingA({Key? key, required this.teamA, required this.teamB})
       : super(key: key);
 
@@ -17,7 +17,7 @@ class _StartingAState extends State<StartingA> {
   int denseCheckCounter = 0;
   final _isChecked = List.filled(13, false);
   bool denseChecker = true;
-  List<int> switchList = [];
+  List<int> switchList =[] ;
   List<String> nameList = [];
 
   @override
@@ -87,9 +87,9 @@ class _StartingAState extends State<StartingA> {
   }
 
   void nextScreen() {
-    Navigator.push(
+    Navigator.pushReplacement(
         context,MaterialPageRoute(
         builder: (context)
-        => StartingB(teamA: widget.teamA,teamB: widget.teamB,regularA: regular,)));
+        => StartingB(teamA: widget.teamA,teamB: widget.teamB,regularA: regular)));
   }
 }

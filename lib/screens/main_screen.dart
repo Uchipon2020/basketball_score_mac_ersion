@@ -12,8 +12,8 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  List<Map> teamA = [];
-  List<Map> teamB = [];
+  var teamA = List<Map<String,dynamic>>.empty();
+  var teamB = List<Map<String,dynamic>>.empty();
   final teamANameController = TextEditingController();
   final teamBNameController = TextEditingController();
   DateTime nowTime = DateTime.now();
@@ -34,7 +34,7 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     teamANameController.text = MainScreen.teamAName;
     teamBNameController.text = MainScreen.teamBName;
-    debugPrint('$MainScreen.teamBName: $MainScreen.teamAName: $teamA :$teamB');
+    //debugPrint('$MainScreen.teamBName: $MainScreen.teamAName: $teamA :$teamB');
 
     if (teamA.isEmpty) {
       _resetScreen();
@@ -93,7 +93,7 @@ class _MainScreenState extends State<MainScreen> {
                         },
                       ),
                     );
-                    teamA = result as List<Map<dynamic, dynamic>>;
+                    teamA = result as List<Map<String, dynamic>>;
                   },
                   child: const Text('TeamA Member'),
                 ),

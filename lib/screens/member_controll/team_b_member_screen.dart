@@ -91,7 +91,7 @@ class _TeamBMembersState extends State<TeamBMembers> {
           return AlertDialog(
               title: const Text('番号・名前変更'),
               content:  SizedBox(
-                height: 100,
+                height: 120,
                 child: Column(
                   children: [
                     TextFormField(
@@ -126,7 +126,7 @@ class _TeamBMembersState extends State<TeamBMembers> {
                   onPressed: () {
                     if(numberController.text != ""){
                     setState(() {
-                      widget.membersB![_index]['number']= int.parse(numberController.text);
+                      widget.membersB![_index]['number'] = int.parse(numberController.text);
                     });}
                     if(nameController.text != ""){
                       setState(() {

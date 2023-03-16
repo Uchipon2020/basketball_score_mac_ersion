@@ -1,3 +1,9 @@
+
+import 'package:basketball_score_mac_ersion/screens/main_screen.dart';
+import 'package:basketball_score_mac_ersion/screens/main_screens/foul/foul_screen.dart';
+import 'package:basketball_score_mac_ersion/screens/main_screens/goal/goal_screen.dart';
+import 'package:basketball_score_mac_ersion/screens/main_screens/memberChange/membar_change_screen.dart';
+import 'package:basketball_score_mac_ersion/screens/main_screens/time_out_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -20,26 +26,37 @@ class GameScreen extends StatefulWidget {
 }
 
 class _GameScreenState extends State<GameScreen> {
+  List<String> activeGameLogToString = [];
+  List<int> activeA5 = [];
+  List<int> activeB5 = [];
+  String? teamName;
   bool quarterCheck1 = true;
   bool quarterCheck2 = false;
   bool quarterCheck3 = false;
   bool quarterCheck4 = false;
-  List<Map> activeGameLog = [
+
+  Map<String, int> activeGameLog = {
+    'quarterNo': 1,
+    'TeamAPoint': 0,
+    'TeamBPoint': 0,
+    'TeamAFoul': 0,
+    'TeamBFoul': 0,
+  };
+  List<int> timeOutA = [0,0,0,0];
+  List<int> timeOutB = [0,0,0,0];
+
+  Map<String, dynamic> memberFoul =
     {
-      'quarterNo': 0,
-      'TeamAPoint': 0,
-      'TeamBPoint': 0,
-      'TeamAFoul': 0,
-      'TeamBFoul': 0,
-      'FoulNo': 0,
-    }
-  ];
-  List<String> activeGameLogToString = [];
+      'number': 0,
+      'foulType': "",
+      'foulCount': 0,
+      'freeThrowPoint': 0,
+    };
 
   @override
   Widget build(BuildContext context) {
+    activeFlesh();
     //アクティブログを文字列に変換して格納
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('ゲーム記録中！！'),
@@ -66,23 +83,28 @@ class _GameScreenState extends State<GameScreen> {
                   Column(
                     children: [
                       Text(
-                        widget.teamA![widget.regularA![0]]['number'].toString(),
+                        //widget.teamA![widget.regularA![0]]['number'].toString(),
+                        activeA5[0].toString(),
                         style: const TextStyle(fontSize: 25.0),
                       ),
                       Text(
-                        widget.teamA![widget.regularA![1]]['number'].toString(),
+                        //widget.teamA![widget.regularA![1]]['number'].toString(),
+                        activeA5[1].toString(),
                         style: const TextStyle(fontSize: 25.0),
                       ),
                       Text(
-                        widget.teamA![widget.regularA![2]]['number'].toString(),
+                        //widget.teamA![widget.regularA![2]]['number'].toString(),
+                        activeA5[2].toString(),
                         style: const TextStyle(fontSize: 25.0),
                       ),
                       Text(
-                        widget.teamA![widget.regularA![3]]['number'].toString(),
+                        //widget.teamA![widget.regularA![3]]['number'].toString(),
+                        activeA5[3].toString(),
                         style: const TextStyle(fontSize: 25.0),
                       ),
                       Text(
-                        widget.teamA![widget.regularA![4]]['number'].toString(),
+                        //widget.teamA![widget.regularA![4]]['number'].toString(),
+                        activeA5[4].toString(),
                         style: const TextStyle(fontSize: 25.0),
                       ),
                     ],
@@ -97,6 +119,7 @@ class _GameScreenState extends State<GameScreen> {
                             quarterCheck2 = false,
                             quarterCheck3 = false,
                             quarterCheck4 = false,
+                            activeGameLog['quarterNo'] = 1,
                           },
                         ),
                         style: ElevatedButton.styleFrom(
@@ -112,6 +135,7 @@ class _GameScreenState extends State<GameScreen> {
                                   quarterCheck2 = !quarterCheck2,
                                   quarterCheck3 = false,
                                   quarterCheck4 = false,
+                                  activeGameLog['quarterNo'] = 2,
                                 },
                               ),
                           style: ElevatedButton.styleFrom(
@@ -126,6 +150,8 @@ class _GameScreenState extends State<GameScreen> {
                                   quarterCheck2 = false,
                                   quarterCheck3 = !quarterCheck3,
                                   quarterCheck4 = false,
+                                  activeGameLog['quarterNo'] = 3,
+                                  debugPrint(activeGameLog['quarterNo'].toString()),
                                 },
                               ),
                           style: ElevatedButton.styleFrom(
@@ -140,6 +166,7 @@ class _GameScreenState extends State<GameScreen> {
                                   quarterCheck2 = false,
                                   quarterCheck3 = false,
                                   quarterCheck4 = !quarterCheck4,
+                                  activeGameLog['quarterNo'] = 4,
                                 },
                               ),
                           style: ElevatedButton.styleFrom(
@@ -153,23 +180,28 @@ class _GameScreenState extends State<GameScreen> {
                   Column(
                     children: [
                       Text(
-                        widget.teamB![widget.regularB![0]]['number'].toString(),
+                        //widget.teamB![widget.regularB![0]]['number'].toString(),
+                        activeB5[0].toString(),
                         style: const TextStyle(fontSize: 25.0),
                       ),
                       Text(
-                        widget.teamB![widget.regularB![1]]['number'].toString(),
+                        //widget.teamB![widget.regularB![1]]['number'].toString(),
+                        activeB5[1].toString(),
                         style: const TextStyle(fontSize: 25.0),
                       ),
                       Text(
-                        widget.teamB![widget.regularB![2]]['number'].toString(),
+                        //widget.teamB![widget.regularB![2]]['number'].toString(),
+                        activeB5[2].toString(),
                         style: const TextStyle(fontSize: 25.0),
                       ),
                       Text(
-                        widget.teamB![widget.regularB![3]]['number'].toString(),
+                        //widget.teamB![widget.regularB![3]]['number'].toString(),
+                        activeB5[3].toString(),
                         style: const TextStyle(fontSize: 25.0),
                       ),
                       Text(
-                        widget.teamB![widget.regularB![4]]['number'].toString(),
+                        //widget.teamB![widget.regularB![4]]['number'].toString(),
+                        activeB5[4].toString(),
                         style: const TextStyle(fontSize: 25.0),
                       ),
                     ],
@@ -182,24 +214,15 @@ class _GameScreenState extends State<GameScreen> {
               child: SizedBox(
                 width: double.infinity,
                 child: ListView.builder(
-                  //controller: listContloll,
-                  reverse: true,
-                    shrinkWrap: true,
                     itemCount: activeGameLogToString.length,
                     itemBuilder: (BuildContext context, int index) {
-                      return Dismissible(
-                          onDismissed:
-                            (direction){
-                          setState((){activeGameLogToString.removeAt(index);});
-                        },
-                        key: UniqueKey(),
-                        child: Card(
+                      return Card(
                           child: ListTile(
                             title: Text(activeGameLogToString[activeGameLogToString.length-index-1].toString()),
+                            //title: Text(activeGameLogToString[index].toString()),
                           ),
-                        ),
-                      );
-                    }),
+                      );},
+                ),
               ),
             ),
             //３／３の上部グループ
@@ -216,13 +239,34 @@ class _GameScreenState extends State<GameScreen> {
                   Row(
                     children: [
                       Expanded(
+                        //TimeOutの処理
                         child: Padding(
                           padding: const EdgeInsets.all(3.0),
                           child: ElevatedButton(
-                            onPressed: () {
+                            onPressed: () async {
+                              final int? selectedInt = await showDialog<int>(
+                                  context: context,
+                                  builder: (_) =>  TimeOutScreen());
+
+                              int? QNo = activeGameLog['quarterNo'];
+                              selectedInt == 0
+                                  ? {teamName = MainScreen.teamAName,
+                                timeOutA[QNo!] = timeOutA[QNo] + 1,
                               setState(() {
-                                activeGameLogToString.add('TimeOutが押されたよ！！');
-                              });
+                              activeGameLogToString.add(
+                              '第 $QNo Q：$teamNameが,${timeOutA[QNo].toString()}'
+                              '回目のタイムアウトを取った');
+                              debugPrint('Qno:$QNo,回数:${timeOutA[QNo]}');
+                              })}
+                                  : {teamName = MainScreen.teamBName,
+                                timeOutB[QNo!] = timeOutB[QNo] + 1,
+                              setState(() {
+                              activeGameLogToString.add(
+                              '第$QNo Q：$teamNameが,${timeOutB[QNo].toString()}'
+                              '回目のタイムアウトを取った');
+                              debugPrint('Qno:$QNo,回数:${timeOutB[QNo]}');
+                              })};
+
                             },
                             style: ElevatedButton.styleFrom(
                                 elevation: 3.0,
@@ -243,14 +287,15 @@ class _GameScreenState extends State<GameScreen> {
                         ),
                       ),
                       Expanded(
+
+                        //MemberChangeの処理
                         child: Padding(
                           padding: const EdgeInsets.all(3.0),
                           child: ElevatedButton(
-                            onPressed: () {
-                              setState(() {
-                                activeGameLogToString.add('MemberChangeが押されたよ！！');
-                              });
-                            },
+                            onPressed: () => showModalBottomSheet(
+                              context: context,
+                              builder: (context) => const MemberChangeScreen(),
+                            ),
                             style: ElevatedButton.styleFrom(
                                 elevation: 3.0,
                                 backgroundColor: Colors.blue,
@@ -259,7 +304,7 @@ class _GameScreenState extends State<GameScreen> {
                                   color: Colors.black,
                                   width: 3.0,
                                 )),
-                            child: const Text(
+                            child:  const Text(
                               'MemberChange',
                               style: TextStyle(
                                 color: Colors.black,
@@ -278,9 +323,9 @@ class _GameScreenState extends State<GameScreen> {
                           padding: const EdgeInsets.all(3.0),
                           child: ElevatedButton(
                             onPressed: () {
-                              setState(() {
-                                activeGameLogToString.add('Goalが押されたよ！！');
-                              });
+                              showModalBottomSheet(
+                                  context: context,
+                                  builder: (context) => GoalScreen(regularA: widget.regularA, regularB: widget.regularB));
                             },
                             style: ElevatedButton.styleFrom(
                                 elevation: 3.0,
@@ -303,12 +348,10 @@ class _GameScreenState extends State<GameScreen> {
                         child: Padding(
                           padding: const EdgeInsets.all(3.0),
                           child: ElevatedButton(
-                            onPressed: () {
-                              setState(() {
-                                //activeGameLogToString.add('Foulが押されたよ！！');
-                                activeGameLogToString.clear();
-                              });
-                            },
+                            onPressed: () => showModalBottomSheet(
+                              context: context,
+                              builder: (context) => FoulScreen(),
+                            ),
                             style: ElevatedButton.styleFrom(
                                 elevation: 3.0,
                                 backgroundColor: Colors.red,
@@ -336,5 +379,19 @@ class _GameScreenState extends State<GameScreen> {
         ),
       ),
     );
+  }
+  void activeFlesh(){
+    activeA5 = [
+      widget.teamA![widget.regularA![0]]['number'],
+      widget.teamA![widget.regularA![1]]['number'],
+      widget.teamA![widget.regularA![2]]['number'],
+      widget.teamA![widget.regularA![3]]['number'],
+      widget.teamA![widget.regularA![4]]['number'],];
+    activeB5 = [
+      widget.teamB![widget.regularB![0]]['number'],
+      widget.teamB![widget.regularB![1]]['number'],
+      widget.teamB![widget.regularB![2]]['number'],
+      widget.teamB![widget.regularB![3]]['number'],
+      widget.teamB![widget.regularB![4]]['number'],];
   }
 }

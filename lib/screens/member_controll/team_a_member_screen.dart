@@ -1,4 +1,5 @@
 
+import 'package:basketball_score_mac_ersion/screens/main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -27,7 +28,7 @@ class _TeamAMembersState extends State<TeamAMembers> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          widget.team,
+          MainScreen.teamAName,
           style: const TextStyle(color: Colors.white),
         ),
         automaticallyImplyLeading: false,
