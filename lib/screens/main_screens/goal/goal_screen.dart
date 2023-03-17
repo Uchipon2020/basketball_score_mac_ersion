@@ -28,55 +28,43 @@ class _GoalScreenState extends State<GoalScreen> {
                   style: ElevatedButton.styleFrom(
                       elevation: 3.0,
                       backgroundColor: Colors.indigo,
-                      fixedSize: const Size(180, 80.0),
+                      fixedSize: const Size(180, 30.0),
                       side: const BorderSide(
                         width: 3.0,
                       )),
                   child: const Text(
                     '2Pint',
-                    style: TextStyle(fontSize: 30.0, color: Colors.white),
+                    style: TextStyle(fontSize: 9.0, color: Colors.white),
                   ),
                 ),
-                const SizedBox(height: 20.0),
+                const SizedBox(height: 10.0),
                 ElevatedButton(
                   onPressed: () {},
                   style: ElevatedButton.styleFrom(
                       elevation: 3.0,
                       backgroundColor: Colors.indigo,
-                      fixedSize: const Size(180, 80.0),
+                      fixedSize: const Size(180, 30.0),
                       side: const BorderSide(
                         width: 3.0,
                       )),
                   child: const Text(
                     '3Point',
-                    style: TextStyle(fontSize: 30.0, color: Colors.white),
+                    style: TextStyle(fontSize: 9.0, color: Colors.white),
                   ),
                 ),
                 Container(
                   alignment: Alignment.centerLeft,
                   child: ListView(
-                  children:<Widget>[
-                    Text(
-                      widget.regularA![0].toString(),
-                    ),
-
-                    Text(
-                      widget.regularA![1].toString(),
-                    ),
-                    Text(
-                      widget.regularA![2].toString(),
-                    ),
-                    Text(
-                      widget.regularA![3].toString()
-                    ),
-                    Text(
-                      widget.regularA![4].toString()
-                    ),
+                  children:[
+                    Text(widget.regularA![0].toString()),
+                    Text(widget.regularA![1].toString()),
+                    Text(widget.regularA![2].toString()),
+                    Text(widget.regularA![3].toString()),
+                    Text(widget.regularA![4].toString()),
                   ],),
                 )
               ],
             ),
-
 
             Column(
               crossAxisAlignment: CrossAxisAlignment.center,
