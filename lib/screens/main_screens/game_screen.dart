@@ -45,6 +45,7 @@ class _GameScreenState extends State<GameScreen> {
   List<int> timeOutA = [0,0,0,0];
   List<int> timeOutB = [0,0,0,0];
 
+
   Map<String, dynamic> memberFoul =
     {
       'number': 0,
@@ -119,7 +120,7 @@ class _GameScreenState extends State<GameScreen> {
                             quarterCheck2 = false,
                             quarterCheck3 = false,
                             quarterCheck4 = false,
-                            activeGameLog['quarterNo'] = 1,
+                            activeGameLog.update('quarterNo',(vale) => 1),
                           },
                         ),
                         style: ElevatedButton.styleFrom(
@@ -135,7 +136,8 @@ class _GameScreenState extends State<GameScreen> {
                                   quarterCheck2 = !quarterCheck2,
                                   quarterCheck3 = false,
                                   quarterCheck4 = false,
-                                  activeGameLog['quarterNo'] = 2,
+                                  activeGameLog.update('quarterNo',(vale) => 2),
+                                  debugPrint(activeGameLog['quarterNo'].toString()),
                                 },
                               ),
                           style: ElevatedButton.styleFrom(
@@ -144,14 +146,13 @@ class _GameScreenState extends State<GameScreen> {
                           ),
                           child: const Text('2Q')),
                       ElevatedButton(
-                          onPressed: () => setState(
-                                () => {
+                          onPressed: () => setState(() => {
                                   quarterCheck1 = false,
                                   quarterCheck2 = false,
                                   quarterCheck3 = !quarterCheck3,
                                   quarterCheck4 = false,
-                                  activeGameLog['quarterNo'] = 3,
-                                  debugPrint(activeGameLog['quarterNo'].toString()),
+                                  activeGameLog.update('quarterNo',(vale) => 3),
+                            debugPrint(activeGameLog['quarterNo'].toString()),
                                 },
                               ),
                           style: ElevatedButton.styleFrom(
@@ -166,7 +167,8 @@ class _GameScreenState extends State<GameScreen> {
                                   quarterCheck2 = false,
                                   quarterCheck3 = false,
                                   quarterCheck4 = !quarterCheck4,
-                                  activeGameLog['quarterNo'] = 4,
+                                  activeGameLog.update('quarterNo',(vale) => 4),
+                                  debugPrint(activeGameLog['quarterNo'].toString()),
                                 },
                               ),
                           style: ElevatedButton.styleFrom(
@@ -247,25 +249,27 @@ class _GameScreenState extends State<GameScreen> {
                               final int? selectedInt = await showDialog<int>(
                                   context: context,
                                   builder: (_) =>  TimeOutScreen());
-
                               int? QNo = activeGameLog['quarterNo'];
                               selectedInt == 0
-                                  ? {teamName = MainScreen.teamAName,
-                                timeOutA[QNo!] = timeOutA[QNo] + 1,
+                                  ? {
+                                teamName = MainScreen.teamAName,
                               setState(() {
+                                timeOutA[QNo!] = timeOutA[QNo] + 1;
                               activeGameLogToString.add(
                               '第 $QNo Q：$teamNameが,${timeOutA[QNo].toString()}'
                               '回目のタイムアウトを取った');
-                              debugPrint('Qno:$QNo,回数:${timeOutA[QNo]}');
-                              })}
-                                  : {teamName = MainScreen.teamBName,
-                                timeOutB[QNo!] = timeOutB[QNo] + 1,
+                              }),
+                              }
+                                  : {
+                                teamName = MainScreen.teamBName,
                               setState(() {
+                                timeOutB[QNo!] = timeOutB[QNo] + 1;
                               activeGameLogToString.add(
                               '第$QNo Q：$teamNameが,${timeOutB[QNo].toString()}'
                               '回目のタイムアウトを取った');
                               debugPrint('Qno:$QNo,回数:${timeOutB[QNo]}');
-                              })};
+                              }),
+                              };
 
                             },
                             style: ElevatedButton.styleFrom(
@@ -325,7 +329,7 @@ class _GameScreenState extends State<GameScreen> {
                             onPressed: () {
                               showModalBottomSheet(
                                   context: context,
-                                  builder: (context) => GoalScreen(regularA: widget.regularA, regularB: widget.regularB));
+                                  builder: (context) => GoalScreen(regularA: activeA5, regularB: activeB5));
                             },
                             style: ElevatedButton.styleFrom(
                                 elevation: 3.0,
@@ -357,7 +361,6 @@ class _GameScreenState extends State<GameScreen> {
                                 backgroundColor: Colors.red,
                                 fixedSize: const Size(20, 60.0),
                                 side: const BorderSide(
-                                  color: Colors.greenAccent,
                                   width: 3.0,
                                 )),
                             child: const Text(

@@ -27,13 +27,13 @@ class _MainScreenState extends State<MainScreen> {
         teamA.add({'number': ii, 'name': ''});
         teamB.add({'number': ii, 'name': ''});
       }
+      teamANameController.text = MainScreen.teamAName;
+      teamBNameController.text = MainScreen.teamBName;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    teamANameController.text = MainScreen.teamAName;
-    teamBNameController.text = MainScreen.teamBName;
     //debugPrint('$MainScreen.teamBName: $MainScreen.teamAName: $teamA :$teamB');
 
     if (teamA.isEmpty) {
